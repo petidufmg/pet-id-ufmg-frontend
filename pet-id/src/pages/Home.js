@@ -1,13 +1,12 @@
 import React from 'react';
 import {useState} from 'react';
 import Drawer from '@material-ui/core/Drawer';
-import Typography from '@material-ui/core/Typography';
-import {AppBar, IconButton, Toolbar, Hidden } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Hidden } from '@material-ui/core';
 import { useTheme }  from '@material-ui/core/styles';
 import useStyles from '../styles/hooks/homeStyles.js';
 import CustomDrawer from '../components/CustomDrawer.js';
 import MainContent from '../components/MainContent.js';
+import CustomAppBar from '../components/CustomAppBar.js';
 
 function Home() {
 
@@ -17,27 +16,13 @@ function Home() {
     const [isOpen,
         setOpen] = useState(false);
 
-    function handleIconButton() {
+    function handleDrawer() {
         setOpen(!isOpen);
     }
 
     return (
         <div className='home-div'>
-            <AppBar className={classes.appBar} position="fixed">
-                <Toolbar>
-                    <IconButton
-                        onClick={handleIconButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        className={classes.menuButton}>
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Pet ID
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            <CustomAppBar setDrawer={handleDrawer}/>
             <nav aria-label="menu links">
                 <Hidden xsDown implementation="css">
                     <Drawer
@@ -46,7 +31,7 @@ function Home() {
                     }}
                         variant="permanent"
                         open={isOpen}
-                        onClose={handleIconButton}>
+                        onClose={handleDrawer}>
                         <CustomDrawer/>
                     </Drawer>
                 </Hidden>
@@ -61,7 +46,7 @@ function Home() {
                         anchor={theme.direction === 'rtl' ? 'right' : 'left'}
                         variant="temporary"
                         open={isOpen}
-                        onClose={handleIconButton}>
+                        onClose={handleDrawer}>
                         <CustomDrawer/>
                     </Drawer>
                 </Hidden>
