@@ -12,47 +12,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
-import {makeStyles, useTheme} from '@material-ui/core/styles';
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-    drawer: {
-        width: `${drawerWidth}px`
-    },
-    appBar: {
-        [
-            theme
-                .breakpoints
-                .up('sm')
-        ]: {
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginLeft: drawerWidth
-        }
-    },
-    mainContent: {
-        [
-            theme
-                .breakpoints
-                .up('sm')
-        ]: {
-            marginLeft: drawerWidth
-        },
-        padding: theme.spacing(3),
-        textAlign: 'left'
-    },
-    menuButton: {
-        [
-            theme
-                .breakpoints
-                .up('sm')
-        ]: {
-            display: 'none'
-        },
-        marginRight: theme.spacing(2)
-    },
-    toolbar: theme.mixins.toolbar
-}));
+import { useTheme }  from '@material-ui/core/styles';
+import useStyles from '../styles/hooks/homeStyles.js';
 
 function Home() {
 
