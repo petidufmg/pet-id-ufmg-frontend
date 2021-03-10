@@ -1,20 +1,12 @@
 import React from 'react';
 import {useState} from 'react';
 import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import {AppBar, IconButton, Toolbar, Hidden } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
-import SearchIcon from '@material-ui/icons/Search';
-import SettingsIcon from '@material-ui/icons/Settings';
 import { useTheme }  from '@material-ui/core/styles';
 import useStyles from '../styles/hooks/homeStyles.js';
-import { Link } from 'react-router-dom';
+import CustomDrawer from '../components/CustomDrawer.js';
 
 function Home() {
 
@@ -27,36 +19,6 @@ function Home() {
     function handleIconButton() {
         setOpen(!isOpen);
     }
-
-    const drawer = (
-        <div>
-            <div className={classes.toolbar}/>
-            <Divider/>
-            <List>
-                {['Home', 'Procurar'].map((text, index) => (
-                    <ListItem to={text === 'Home' ? '/home' : '/search'} component={Link} button key={index}>
-                        <ListItemIcon>
-                            {text === 'Home'
-                                ? <HomeIcon/>
-                                : <SearchIcon/>}
-                        </ListItemIcon>
-                        <ListItemText primary={text}/>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider/>
-            <List>
-                {['Configurações'].map((text, index) => (
-                    <ListItem to="/settings" component={Link} button key={index}>
-                        <ListItemIcon>
-                            <SettingsIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary={text}/>
-                    </ListItem>
-                ))}
-            </List>
-        </div>
-    );
 
     return (
         <div className='home-div'>
@@ -84,7 +46,7 @@ function Home() {
                         variant="permanent"
                         open={isOpen}
                         onClose={handleIconButton}>
-                        {drawer}
+                        <CustomDrawer/>
                     </Drawer>
                 </Hidden>
                 <Hidden smUp implementation="css">
@@ -99,7 +61,7 @@ function Home() {
                         variant="temporary"
                         open={isOpen}
                         onClose={handleIconButton}>
-                        {drawer}
+                        <CustomDrawer/>
                     </Drawer>
                 </Hidden>
             </nav>
