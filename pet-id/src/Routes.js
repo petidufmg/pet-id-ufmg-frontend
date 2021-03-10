@@ -9,6 +9,12 @@ function Router() {
                 <Route path="/home">
                     <Home/>
                 </Route>
+                <Route path="/settings">
+                    <Home/>
+                </Route>
+                <Route path="/search">
+                    <Home/>
+                </Route>
                 <Route path="/">
                     <Login/>
                 </Route>

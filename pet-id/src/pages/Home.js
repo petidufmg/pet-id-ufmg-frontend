@@ -14,6 +14,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { useTheme }  from '@material-ui/core/styles';
 import useStyles from '../styles/hooks/homeStyles.js';
+import { Link } from 'react-router-dom';
 
 function Home() {
 
@@ -33,7 +34,7 @@ function Home() {
             <Divider/>
             <List>
                 {['Home', 'Procurar'].map((text, index) => (
-                    <ListItem button key={index}>
+                    <ListItem to={text === 'Home' ? '/home' : '/search'} component={Link} button key={index}>
                         <ListItemIcon>
                             {text === 'Home'
                                 ? <HomeIcon/>
@@ -46,7 +47,7 @@ function Home() {
             <Divider/>
             <List>
                 {['Configurações'].map((text, index) => (
-                    <ListItem button key={index}>
+                    <ListItem to="/settings" component={Link} button key={index}>
                         <ListItemIcon>
                             <SettingsIcon/>
                         </ListItemIcon>
