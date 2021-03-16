@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const homeStyles = makeStyles((theme) => ({
     drawer: {
         width: `${drawerWidth}px`
     },
@@ -40,4 +40,4 @@ const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar
 }));
 
-export default useStyles;
+export default homeStyles;
