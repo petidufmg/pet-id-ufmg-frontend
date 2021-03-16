@@ -7,6 +7,7 @@ import Search from '../pages/Search.js';
 import {useRouteMatch} from 'react-router-dom';
 import CustomTypography from '../components/CustomTypography.js';
 import homeStyles from '../styles/hooks/homeStyles.js';
+import PetInfo from './PetInfo.js';
 
 function Home() {
 
@@ -16,6 +17,17 @@ function Home() {
 
     function handleDrawer() {
         setOpen(!isOpen);
+    }
+
+    function matchURL() {
+        switch (match.url) {
+            case '/home':
+                return <CustomTypography/>
+            case '/pet-info':
+                return <PetInfo/>
+            default:
+                return <Search/>
+        }
     }
 
     const classes = homeStyles();
@@ -32,9 +44,7 @@ function Home() {
                 </Hidden>
             </nav>
             <main className={classes.mainContent}>
-                {match.url === '/home'
-                    ? <CustomTypography/>
-                    : <Search/>}
+                {matchURL()}
             </main>
         </div>
     );

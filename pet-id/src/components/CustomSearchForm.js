@@ -3,13 +3,13 @@ import {IconButton, InputBase} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import searchStyles from '../styles/hooks/searchStyles.js';
 
-function CustomSearchForm() {
+function CustomSearchForm(props) {
 
     const classes = searchStyles();
 
     return (
         <div className={classes.paperDiv}>
-            <Paper className={classes.searchForm} component="form">
+            <Paper className={classes.searchForm} component="form" onSubmit={props.handleSubmit}>
                 <InputBase
                     className={classes.input}
                     placeholder="Procurar animal..."

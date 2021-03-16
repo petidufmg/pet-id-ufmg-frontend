@@ -1,6 +1,7 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Login from './pages/Login.js';
 import Home from './pages/Home.js';
+import PetInfo from './pages/PetInfo.js';
 
 function Router() {
     return (
@@ -13,6 +14,9 @@ function Router() {
                     <Home/>
                 </Route>
                 <Route path="/search">
+                    <Home/>
+                </Route>
+                <Route path="/pet-info">
                     <Home/>
                 </Route>
                 <Route path="/">
