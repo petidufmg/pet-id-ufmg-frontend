@@ -8,8 +8,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { Link } from 'react-router-dom';
-import { useTheme } from '@material-ui/core/styles';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {Link} from 'react-router-dom';
+import {useTheme} from '@material-ui/core/styles';
 
 function CustomDrawer(props) {
 
@@ -39,10 +40,19 @@ function CustomDrawer(props) {
             </List>
             <Divider/>
             <List>
-                {['Configurações'].map((text, index) => (
-                    <ListItem to="/settings" component={Link} button key={index}>
+                {['Configurações', 'Sair'].map((text, index) => (
+                    <ListItem
+                        to={text === 'Sair'
+                        ? '/'
+                        : '/settings'}
+                        component={Link}
+                        button
+                        key={index}>
                         <ListItemIcon>
-                            <SettingsIcon/>
+                            {text === 'Configurações'
+                                ? <SettingsIcon/>
+                                : <ExitToAppIcon/>}
+
                         </ListItemIcon>
                         <ListItemText primary={text}/>
                     </ListItem>
@@ -63,7 +73,9 @@ function CustomDrawer(props) {
             ? 'right'
             : 'left'}
             ModalProps={{
-            keepMounted: props.variant === "temporary" ? true : false
+            keepMounted: props.variant === "temporary"
+                ? true
+                : false
         }}>
             {drawer}
         </Drawer>
