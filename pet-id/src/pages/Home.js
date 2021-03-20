@@ -8,6 +8,7 @@ import {useRouteMatch} from 'react-router-dom';
 import CustomTypography from '../components/CustomTypography.js';
 import homeStyles from '../styles/hooks/homeStyles.js';
 import PetInfo from './PetInfo.js';
+import PetLocale from './PetLocale.js';
 
 function Home() {
 
@@ -25,6 +26,8 @@ function Home() {
                 return <CustomTypography/>
             case '/pet-info':
                 return <PetInfo/>
+            case '/pet-locale':
+                return <PetLocale/>
             default:
                 return <Search/>
         }
