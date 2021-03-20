@@ -11,10 +11,10 @@ import Pet from '../attributes/pet/Pet.js';
 import dogs from '../examples/dogs.js';
 import {petInfoStyles, StyledTableRow} from '../styles/hooks/petInfoStyles.js';
 
-function CustomTable() {
+function CustomTable(props) {
 
     const classes = petInfoStyles();
-
+    const dogData = Object.values(dogs);
     const rows = Pet.map((item, index) => (
         <StyledTableRow>
             <TableCell>
@@ -23,9 +23,18 @@ function CustomTable() {
                 </Typography>
             </TableCell>
             <TableCell>
-                <Button variant="contained" disableElevation color="primary">
-                    {dogs[index]}
-                </Button>
+                {item === 'Data das vacinações' || item === 'Data das vermifugações'
+                    ? <Button
+                            value={item}
+                            onClick={props.onClick}
+                            variant="contained"
+                            disableElevation
+                            color="primary">
+                            {item === 'Data das vacinações'
+                                ? props.buttonState.vaccineButton.name
+                                : props.buttonState.vermifugeButton.name}
+                        </Button>
+                    : <Typography color="primary">{dogData[index]}</Typography>}
             </TableCell>
         </StyledTableRow>
     ));

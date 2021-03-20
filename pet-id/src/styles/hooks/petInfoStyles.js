@@ -1,5 +1,5 @@
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { TableRow } from '@material-ui/core';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
+import {TableRow} from '@material-ui/core';
 
 const petInfoStyles = makeStyles((theme) => ({
     img: {
@@ -21,4 +21,4 @@ const StyledTableRow = withStyles((theme) => ({
     }
 }))(TableRow);
 
-export { StyledTableRow, petInfoStyles };
+export {StyledTableRow, petInfoStyles};
