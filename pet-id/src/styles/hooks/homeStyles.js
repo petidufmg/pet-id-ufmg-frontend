@@ -24,7 +24,7 @@ const homeStyles = makeStyles((theme) => ({
         ]: {
             marginLeft: drawerWidth
         },
-        padding: theme.spacing(3),
+        padding: theme.spacing(1),
         textAlign: 'left'
     },
     menuButton: {
