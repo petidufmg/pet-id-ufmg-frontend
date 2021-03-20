@@ -25,7 +25,12 @@ function Login() {
                         <TextField required label="Senha" variant="filled"/>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button className="button" variant="contained" color="secondary">
+                        <Button
+                            to="/sign-up"
+                            component={Link}
+                            className="button"
+                            variant="contained"
+                            color="secondary">
                             Cadastrar
                         </Button>
                     </Grid>

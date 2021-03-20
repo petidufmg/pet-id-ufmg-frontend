@@ -1,7 +1,7 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Login from './pages/Login.js';
 import Home from './pages/Home.js';
-import PetInfo from './pages/PetInfo.js';
+import SignUp from './pages/SignUp.js';
 
 function Router() {
     return (
@@ -12,6 +12,9 @@ function Router() {
                 </Route>
                 <Route path="/settings">
                     <Home/>
+                </Route>
+                <Route path="/sign-up">
+                    <SignUp/>
                 </Route>
                 <Route path="/search">
                     <Home/>
