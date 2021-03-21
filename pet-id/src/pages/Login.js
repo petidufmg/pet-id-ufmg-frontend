@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import PetsIcon from '@material-ui/icons/Pets';
 import '../styles/css/login.css';
 import {Link} from 'react-router-dom';
+import {Typography} from '@material-ui/core';
 
 function Login() {
 
@@ -13,9 +14,9 @@ function Login() {
             <form className="MuiTextField-root">
                 <Grid container justify="center" spacing={3}>
                     <Grid item>
-                        <h1>Pet ID
-                            <PetsIcon/>
-                        </h1>
+                        <Typography variant="h2">
+                            Pet ID <PetsIcon fontSize="large"/>
+                        </Typography>
                     </Grid>
 
                     <Grid item>
