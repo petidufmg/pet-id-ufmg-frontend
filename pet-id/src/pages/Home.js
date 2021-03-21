@@ -9,6 +9,7 @@ import CustomTypography from '../components/CustomTypography.js';
 import homeStyles from '../styles/hooks/homeStyles.js';
 import PetInfo from './PetInfo.js';
 import PetLocale from './PetLocale.js';
+import Settings from './Settings.js';
 
 function Home() {
 
@@ -28,6 +29,8 @@ function Home() {
                 return <PetInfo/>
             case '/pet-locale':
                 return <PetLocale/>
+            case '/settings':
+                return <Settings/>
             default:
                 return <Search/>
         }
