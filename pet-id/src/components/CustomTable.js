@@ -7,7 +7,7 @@ import {
     TableContainer,
     Typography
 } from '@material-ui/core';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Pet from '../attributes/pet/Pet.js';
 import dogs from '../examples/dogs.js';
 import {petInfoStyles, StyledTableRow} from '../styles/hooks/petInfoStyles.js';
@@ -54,6 +54,23 @@ function CustomTable(props) {
             </TableCell>
         </StyledTableRow>
     ));
+    const onwerRows = <StyledTableRow>
+        <TableCell>
+            <Typography>
+                Tutor
+            </Typography>
+        </TableCell>
+        <TableCell>
+            <Button
+                value="Tutor"
+                onClick={props.onClick}
+                variant="contained"
+                disableElevation
+                color="primary">
+                {props.buttonState.ownerButton.name}
+            </Button>
+        </TableCell>
+    </StyledTableRow>
 
     return (
         <div>
@@ -61,6 +78,7 @@ function CustomTable(props) {
                 <Table>
                     <TableBody>
                         {rows}
+                        {onwerRows}
                     </TableBody>
                 </Table>
             </TableContainer>
