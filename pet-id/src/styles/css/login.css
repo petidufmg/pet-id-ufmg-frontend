@@ -1,12 +1,12 @@
 .MuiTextField-root {
-    width: 25ch;
+  width: 25ch;
 }
 
 .home-div {
-    margin-top: 70px;
-    display: inline-block;
+  margin-top: 70px;
+  display: inline-block;
 }
 
 .button {
-    width: 110px
+  width: 110px;
 }
