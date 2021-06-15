@@ -8,9 +8,36 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import SettingsIcon from "@material-ui/icons/Settings";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Link } from "react-router-dom";
 import { useTheme } from "@material-ui/core/styles";
+
+function getPathname(text) {
+  switch(text) {
+    case "Home":
+      return "/home";
+    case "Procurar":
+      return "/search";
+    case "Adicionar Animal":
+      return "/pet-add";
+    default:
+      return "/"
+  }
+}
+
+function getPathnameIcon(text) {
+  switch (text) {
+    case "Home":
+      return <HomeIcon/>;
+    case "Procurar":
+      return <SearchIcon/>;
+    case "Adicionar Animal":
+      return <AddCircleOutlineIcon/>;
+    default:
+      return <HomeIcon/>;
+  }
+}
 
 function CustomDrawer(props) {
   const classes = useStyles();
@@ -20,15 +47,15 @@ function CustomDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {["Home", "Procurar"].map((text, index) => (
+        {["Home", "Procurar", "Adicionar Animal"].map((text, index) => (
           <ListItem
-            to={text === "Home" ? "/home" : "/search"}
+            to={getPathname(text)}
             component={Link}
             button
             key={index}
           >
             <ListItemIcon>
-              {text === "Home" ? <HomeIcon /> : <SearchIcon />}
+              {getPathnameIcon(text)}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>

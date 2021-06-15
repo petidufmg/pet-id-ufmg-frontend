@@ -25,6 +25,9 @@ function Router() {
         <Route path="/pet-locale">
           <Home />
         </Route>
+        <Route path="/pet-add">
+          <Home />
+        </Route>
         <Route path="/">
           <Login />
         </Route>
