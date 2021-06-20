@@ -1,20 +1,20 @@
-const Pet = [
-  "Nome",
-  "Espécie",
-  "Raça",
-  "Pelagem",
-  "Porte",
-  "Sexo",
-  "Idade",
-  "Data da microchipagem",
-  "Número do microchip",
-  "Local de captura",
-  "Data do recolhimento",
-  "Data da esterilização",
-  "Data das vermifugações",
-  "Data das vacinações",
-  "Data da adoção",
-  "Data do óbito/eutanásia",
-];
+const PetEnum = Object.freeze({
+  microchipNumber: ["Número do microchip", false],
+  name: ["Nome", false],
+  specie: ["Espécie", false],
+  breed: ["Raça", false],
+  coat: ["Pelagem", false],
+  height: ["Porte", false],
+  age: ["Idade", false],
+  sex: ["Sexo", false],
+  microchippingDate: ["Data da microchipagem", false],
+  captureLocalization: ["Local de captura", false],
+  withdrawalDate: ["Data do recolhimento", false],
+  sterilizationDate: ["Data da esterilização", false],
+  dewormingDates: ["Data das vermifugações", true],
+  vaccinationDates: ["Data das vacinações", true],
+  adoptionDate: ["Data da adoção", false],
+  deathDate: ["Data do óbito/eutanásia", false],
+});
 
-export default Pet;
+export default PetEnum;

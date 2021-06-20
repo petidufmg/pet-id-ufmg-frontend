@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import Pet from "../attributes/pet/Pet.js";
+import PetEnum from "../attributes/pet/Pet.js";
 import dogs from "../examples/dogs.js";
 import {
   petInfoStyles,
@@ -52,14 +52,16 @@ function CustomTable(props) {
 
   const classes = petInfoStyles();
   const dogData = Object.values(dogs);
-  const rows = Pet.map((item, index) => (
+  const rows = Object.values(PetEnum).map((item, index) => { 
+    const [attrLabel] = item;
+    return(
     <StyledTableRow>
       <TableCell>
-        <Typography>{item}:</Typography>
+        <Typography>{attrLabel}:</Typography>
       </TableCell>
-      <TableCell>{switchComponents(item, index)}</TableCell>
+      <TableCell>{switchComponents(attrLabel, index)}</TableCell>
     </StyledTableRow>
-  ));
+  )});
   const onwerRows = (
     <StyledTableRow>
       <TableCell>
