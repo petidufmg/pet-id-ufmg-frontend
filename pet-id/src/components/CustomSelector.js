@@ -1,14 +1,21 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "../styles/css/customSelector.css";
 import CustomSelectorStyles from "../styles/hooks/customSelectorStyles";
 
-function CustomSelector() {
+function CustomSelector(props) {
+  const location = useLocation();
+  const state = location.state || { height: "Pequeno" };
   const customSelectorClasses = CustomSelectorStyles();
-  const [height, setHeight] = useState("Pequeno");
+  const [height, setHeight] = useState(state.height);
 
   function handleHeight(e) {
     setHeight(e.target.value);
+    props.setState((prev) => ({
+      ...prev,
+      height: e.target.value,
+    }));
   }
 
   return (
@@ -24,9 +31,9 @@ function CustomSelector() {
         onChange={handleHeight}
         label="Porte"
       >
-        <MenuItem value={10}>Pequeno</MenuItem>
-        <MenuItem value={20}>Médio</MenuItem>
-        <MenuItem value={30}>Grande</MenuItem>
+        <MenuItem value={"Pequeno"}>Pequeno</MenuItem>
+        <MenuItem value={"Médio"}>Médio</MenuItem>
+        <MenuItem value={"Grande"}>Grande</MenuItem>
       </Select>
     </FormControl>
   );

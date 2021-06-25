@@ -1,18 +1,20 @@
 import CustomRadio from "../components/CustomRadio";
 import CustomDatePicker from "../components/CustomDatePicker";
 import CustomSelector from "../components/CustomSelector";
-import EditIcon from "@material-ui/icons/Edit";
-import { Link } from "react-router-dom";
+import CustomLocaleButton from "../components/CustomLocaleButton";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import Toolbar from "react-multi-date-picker/plugins/toolbar";
-import { Button, TextField } from "@material-ui/core";
 import _ from "lodash";
+import CustomTextField from "../components/CustomTextField";
 
-function addPetFormSwitcher(pet) {
+function addPetFormSwitcher(pet, state, setState, index) {
   const [attrLabel, isMultipleAttr] = pet;
+
   if (_.includes(attrLabel, "Data")) {
     return (
       <CustomDatePicker
+        setState={setState}
+        index={index}
         isMultiple={isMultipleAttr}
         label={attrLabel}
         variant="outlined"
@@ -35,29 +37,17 @@ function addPetFormSwitcher(pet) {
       />
     );
   } else if (attrLabel === "Sexo") {
-    return <CustomRadio />;
+    return <CustomRadio setState={setState} />;
   } else if (attrLabel === "Porte") {
-    return <CustomSelector />;
+    return <CustomSelector setState={setState} />;
   } else if (attrLabel === "Local de captura") {
-    return (
-      <Button
-        variant="outlined"
-        color="primary"
-        component={Link}
-        to="/pet-locale"
-        endIcon={<EditIcon />}
-      >
-        Local de captura
-      </Button>
-    );
+    return <CustomLocaleButton state={state} />;
   } else {
     return (
-      <TextField
-        variant="outlined"
-        type={
-          attrLabel === "Número do microchip" || "Idade" ? "number" : "text"
-        }
-        label={attrLabel}
+      <CustomTextField
+        setState={setState}
+        index={index}
+        attrLabel={attrLabel}
       />
     );
   }
