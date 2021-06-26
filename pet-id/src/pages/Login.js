@@ -19,10 +19,10 @@ function Login() {
           </Grid>
 
           <Grid item>
-            <TextField required label="Usuário" variant="filled" />
+            <TextField required label="Usuário" variant="outlined" />
           </Grid>
           <Grid item>
-            <TextField required label="Senha" variant="filled" />
+            <TextField required label="Senha" variant="outlined" />
           </Grid>
           <Grid item xs={6}>
             <Button

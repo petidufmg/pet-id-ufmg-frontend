@@ -17,16 +17,13 @@ function Settings() {
           direction="column"
           spacing="5"
         >
-          <Grid item>
-            <FormControlLabel control={<Switch />} label="Algum controle" />
-          </Grid>
           {["Usuário", "Senha Antiga", "Nova Senha"].map((item) => {
             return (
               <Grid item>
                 <TextField
                   required
                   id="outlined-required"
-                  variant="filled"
+                  variant="outlined"
                   label={item}
                 />
               </Grid>

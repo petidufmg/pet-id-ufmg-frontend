@@ -30,7 +30,7 @@ function SignUp() {
                   required
                   id="outlined-required"
                   label={item}
-                  variant="filled"
+                  variant="outlined"
                 />
               </Grid>
             );
