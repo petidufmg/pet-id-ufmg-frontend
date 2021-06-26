@@ -18,6 +18,13 @@ function PetAdd(props) {
       textField: {},
     }
   );
+
+  function handleSaveClick() {
+    if (location.from === "/pet-info") {
+      history.goBack();
+    }
+  }
+
   return (
     <div>
       <form>
@@ -62,6 +69,7 @@ function PetAdd(props) {
               md={6}
             >
               <Button
+                onClick={handleSaveClick}
                 className={petAddClasses.actionButton}
                 color="secondary"
                 variant="contained"

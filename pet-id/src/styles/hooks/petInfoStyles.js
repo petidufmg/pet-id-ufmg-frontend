@@ -11,6 +11,9 @@ const petInfoStyles = makeStyles((theme) => ({
   table: {
     height: "400px",
   },
+  editButtonContainer: {
+    paddingTop: theme.spacing(2)
+  }
 }));
 
 const StyledTableRow = withStyles((theme) => ({

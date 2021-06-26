@@ -4,10 +4,12 @@ import { petInfoStyles } from "../styles/hooks/petInfoStyles.js";
 import CustomTable from "../components/CustomTable.js";
 import CustomTableExtension from "../components/CustomTableExtension";
 import { useReducer } from "react";
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import petInfoReducer from "../reducers/petInfoReducer.js";
+import { useHistory } from "react-router-dom";
 
 function PetInfo() {
+  const history = useHistory();
   const [buttonState, dispatch] = useReducer(petInfoReducer, {
     vaccineButton: {
       status: false,
@@ -37,6 +39,10 @@ function PetInfo() {
       default:
         console.log("Other button was clicked");
     }
+  }
+
+  function handleEditClick() {
+    history.push({pathname: "/pet-add", from: "/pet-info"});
   }
 
   const classes = petInfoStyles();
@@ -69,6 +75,11 @@ function PetInfo() {
             <CustomTableExtension buttonState={buttonState} />
           </Grid>
         </Grid>
+      </Grid>
+      <Grid className={classes.editButtonContainer} m={5} container justify="center">
+        <Button onClick={handleEditClick} color="primary" variant="contained">
+            Editar
+        </Button>
       </Grid>
     </div>
   );
