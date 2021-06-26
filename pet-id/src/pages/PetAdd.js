@@ -19,7 +19,7 @@ function PetAdd(props) {
     }
   );
 
-  function handleSaveClick() {
+  function handleGoBackClick() {
     if (location.from === "/pet-info") {
       history.goBack();
     }
@@ -42,7 +42,7 @@ function PetAdd(props) {
               className={petAddClasses.clearButtonContainer}
               item
               xs={12}
-              md={6}
+              md={4}
             >
               <Button
                 className={petAddClasses.actionButton}
@@ -63,13 +63,28 @@ function PetAdd(props) {
               </Button>
             </Grid>
             <Grid
+              className={petAddClasses.cancelButtonContainer}
+              item
+              xs={12}
+              md={4}
+            >
+              <Button
+                onClick={handleGoBackClick}
+                className={petAddClasses.actionButton}
+                color="primary"
+                variant="contained"
+              >
+                Cancelar
+              </Button>
+            </Grid>
+            <Grid
               className={petAddClasses.saveButtonContainer}
               item
               xs={12}
-              md={6}
+              md={4}
             >
               <Button
-                onClick={handleSaveClick}
+                onClick={handleGoBackClick}
                 className={petAddClasses.actionButton}
                 color="secondary"
                 variant="contained"

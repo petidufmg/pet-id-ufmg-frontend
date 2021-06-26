@@ -19,6 +19,9 @@ const petAddStyles = makeStyles((theme) => ({
       textAlign: "center"
     }
   },
+  cancelButtonContainer: {
+    textAlign: "center"
+  },
   actionButton: {
     width: buttonWidth
   },
