@@ -20,7 +20,7 @@ function SignUp() {
               Pet ID <PetsIcon fontSize="large" />
             </Typography>
           </Grid>
-          {["Usuário", "Senha", "Nome", "Sobrenome", "E-mail"].map((item) => {
+          {["Usuário", "Senha", "Nome", "Sobrenome", "Clínica/Instituição", "E-mail"].map((item) => {
             return (
               <Grid item>
                 <TextField
