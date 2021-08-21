@@ -22,7 +22,7 @@ function CustomDatePicker(props) {
       ...prev,
       date: {
         ...prev.date,
-        [props.index]: value.toDate(),
+        [props.index]: value === null ? null : value.toDate(),
       },
     }));
   }
