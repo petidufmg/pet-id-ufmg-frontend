@@ -10,7 +10,7 @@ import {
   StyledTableRow,
 } from "../styles/hooks/petInfoStyles.js";
 import dogs from "../examples/dogs.js";
-import Owner from "../attributes/owner/Owner.js";
+import OwnerEnum from "../attributes/owner/Owner.js";
 
 function CustomTableExtension(props) {
   const classes = petInfoStyles();
@@ -26,7 +26,7 @@ function CustomTableExtension(props) {
   } else if (vermifuge.status) {
     array = dogs.dewormingDates;
   } else {
-    array = Object.values(dogs.ownerData);
+    array = Object.keys(dogs.ownerData);
   }
 
   const head = (
@@ -44,11 +44,11 @@ function CustomTableExtension(props) {
     </StyledTableRow>
   ));
 
-  const ownerRows = array.map((item, index) =>
-    Owner[index] !== "Telefones de Contato" ? (
+  const ownerRows = array.map(item =>
+    OwnerEnum[item][0] !== "Telefones de Contato" ? (
       <StyledTableRow>
-        <TableCell>{Owner[index]}</TableCell>
-        <TableCell>{item}</TableCell>
+        <TableCell>{OwnerEnum[item][0]}</TableCell>
+        <TableCell>{dogs.ownerData[item]}</TableCell>
       </StyledTableRow>
     ) : (
       dogs.ownerData.telephones.map((tel) => (
