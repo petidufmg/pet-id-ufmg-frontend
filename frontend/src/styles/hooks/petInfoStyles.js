@@ -12,15 +12,25 @@ const petInfoStyles = makeStyles((theme) => ({
     height: "400px",
   },
   actionButtonsContainer: {
-    paddingTop: theme.spacing(2)
+    paddingTop: theme.spacing(2),
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+    }
   },
   editButtonContainer: {
-    textAlign: "right",
-    paddingRight: theme.spacing(1)
+    [theme.breakpoints.up("md")]: {
+      textAlign: "right",
+      paddingRight: theme.spacing(1)
+    }
   },
   deleteButtonContainer: {
-    textAlign: "left",
-    paddingLeft: theme.spacing(1)
+    [theme.breakpoints.up("md")]: {
+      textAlign: "left",
+      paddingLeft: theme.spacing(1)
+    },
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: theme.spacing(1)
+    }
   },
   deleteButton: {
     color: "#ffffff",
