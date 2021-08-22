@@ -11,8 +11,23 @@ const petInfoStyles = makeStyles((theme) => ({
   table: {
     height: "400px",
   },
-  editButtonContainer: {
+  actionButtonsContainer: {
     paddingTop: theme.spacing(2)
+  },
+  editButtonContainer: {
+    textAlign: "right",
+    paddingRight: theme.spacing(1)
+  },
+  deleteButtonContainer: {
+    textAlign: "left",
+    paddingLeft: theme.spacing(1)
+  },
+  deleteButton: {
+    color: "#ffffff",
+    background: "#ff1744",
+    "&:hover": {
+      background: "#b71c1c"
+    }
   }
 }));
 

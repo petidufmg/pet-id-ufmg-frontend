@@ -42,7 +42,7 @@ function PetInfo() {
   }
 
   function handleEditClick() {
-    history.push({pathname: "/pet-add", from: "/pet-info"});
+    history.push({ pathname: "/pet-add", from: "/pet-info" });
   }
 
   const classes = petInfoStyles();
@@ -76,10 +76,21 @@ function PetInfo() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid className={classes.editButtonContainer} m={5} container justify="center">
-        <Button onClick={handleEditClick} color="primary" variant="contained">
+      <Grid className={classes.actionButtonsContainer} m={5} container>
+        <Grid className={classes.editButtonContainer} item xs={12} md={6}>
+          <Button onClick={handleEditClick} color="primary" variant="contained">
             Editar
-        </Button>
+          </Button>
+        </Grid>
+        <Grid className={classes.deleteButtonContainer} item xs={12} md={6}>
+          <Button
+            className={classes.deleteButton}
+            onClick={handleEditClick}
+            variant="contained"
+          >
+            Deletar
+          </Button>
+        </Grid>
       </Grid>
     </div>
   );
