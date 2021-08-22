@@ -1,5 +1,6 @@
 import { Button, Grid, Divider } from "@material-ui/core";
 import PetEnum from "../attributes/pet/Pet";
+import OwnerEnum from "../attributes/owner/Owner";
 import PetAddStyles from "../styles/hooks/petAddStyles";
 import addPetFormSwitcher from "../helpers/addPetFormSwitcher";
 import { useState } from "react";
@@ -19,6 +20,12 @@ function PetAdd(props) {
     }
   );
 
+  const [ownerForm, setOwnerForm] = useState(
+    location.state || {
+      textField: {},
+    }
+  );
+
   function handleGoBackClick() {
     if (location.from === "/pet-info") {
       history.goBack();
@@ -26,12 +33,24 @@ function PetAdd(props) {
   }
 
   return (
-    <div>
+    <div className={petAddClasses.root}>
       <form>
+        <h2 align="center">Informações do animal</h2>
         <Grid container spacing="5">
           {Object.values(PetEnum).map((pet, index) => (
             <Grid item spacing="5" md={6} xs={12} align="center">
               {addPetFormSwitcher(pet, form, setForm, index)}
+            </Grid>
+          ))}
+          <Grid xs={12} item>
+            <Divider />
+          </Grid>
+          <Grid item spacing="5" align="center" xs={12}>
+            <h2>Informações do Tutor</h2>
+          </Grid>
+          {Object.values(OwnerEnum).map((owner, index) => (
+            <Grid item spacing="5" md={6} xs={12} align="center">
+              {addPetFormSwitcher(owner, ownerForm, setOwnerForm, index)}
             </Grid>
           ))}
           <Grid container item spacing={2}>

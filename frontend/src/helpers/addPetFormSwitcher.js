@@ -8,7 +8,7 @@ import _ from "lodash";
 import CustomTextField from "../components/CustomTextField";
 
 function addPetFormSwitcher(pet, state, setState, index) {
-  const [attrLabel, isMultipleAttr] = pet;
+  const [attrLabel, isMultipleAttr, attrType] = pet;
 
   if (_.includes(attrLabel, "Data")) {
     return (
@@ -48,6 +48,7 @@ function addPetFormSwitcher(pet, state, setState, index) {
         setState={setState}
         index={index}
         attrLabel={attrLabel}
+        attrType={attrType}
       />
     );
   }

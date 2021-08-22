@@ -23,7 +23,7 @@ function CustomTextField(props) {
       onChange={handleChange}
       variant="outlined"
       type={
-        props.attrLabel === ("Número do microchip" || "Idade")
+        props.attrType === "numeric"
           ? "number"
           : "text"
       }

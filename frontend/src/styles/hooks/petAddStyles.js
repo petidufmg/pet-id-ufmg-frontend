@@ -3,6 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 const buttonWidth = 200;
 
 const petAddStyles = makeStyles((theme) => ({
+  root: {
+    "& h2": {
+      color: theme.palette.text.secondary
+    }
+  },
   clearButtonContainer: {
     [theme.breakpoints.up("md")]: {
       textAlign: "right"
