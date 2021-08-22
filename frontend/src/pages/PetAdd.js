@@ -20,12 +20,6 @@ function PetAdd(props) {
     }
   );
 
-  const [ownerForm, setOwnerForm] = useState(
-    location.state || {
-      textField: {},
-    }
-  );
-
   function handleGoBackClick() {
     if (location.from === "/pet-info") {
       history.goBack();
@@ -50,7 +44,7 @@ function PetAdd(props) {
           </Grid>
           {Object.values(OwnerEnum).map((owner, index) => (
             <Grid item spacing="5" md={6} xs={12} align="center">
-              {addPetFormSwitcher(owner, ownerForm, setOwnerForm, index)}
+              {addPetFormSwitcher(owner, form, setForm, index + Object.keys(PetEnum).length)}
             </Grid>
           ))}
           <Grid container item spacing={2}>
