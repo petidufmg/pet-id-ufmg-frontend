@@ -37,34 +37,34 @@ function CustomTableExtension(props) {
     </StyledTableRow>
   );
 
-  const rows = array.map(([name, date]) => (
-    <StyledTableRow>
-      <TableCell>{name}</TableCell>
-      <TableCell>{date}</TableCell>
-    </StyledTableRow>
-  ));
-
-  const ownerRows = array.map(item =>
-    OwnerEnum[item][0] !== "Telefones de Contato" ? (
-      <StyledTableRow>
-        <TableCell>{OwnerEnum[item][0]}</TableCell>
-        <TableCell>{dogs.ownerData[item]}</TableCell>
-      </StyledTableRow>
-    ) : (
-      dogs.ownerData.telephones.map((tel) => (
+  const rows = owner.status
+    ? array.map((item) =>
+        OwnerEnum[item][0] !== "Telefones de Contato" ? (
+          <StyledTableRow>
+            <TableCell>{OwnerEnum[item][0]}</TableCell>
+            <TableCell>{dogs.ownerData[item]}</TableCell>
+          </StyledTableRow>
+        ) : (
+          dogs.ownerData.telephones.map((tel) => (
+            <StyledTableRow>
+              <TableCell>Tel:</TableCell>
+              <TableCell>{tel}</TableCell>
+            </StyledTableRow>
+          ))
+        )
+      )
+    : array.map(([name, date]) => (
         <StyledTableRow>
-          <TableCell>Tel:</TableCell>
-          <TableCell>{tel}</TableCell>
+          <TableCell>{name}</TableCell>
+          <TableCell>{date}</TableCell>
         </StyledTableRow>
-      ))
-    )
-  );
+      ));
 
   return (
     <div>
       <TableContainer className={classes.table} component={Paper}>
         <TableHead>{!owner.status && head}</TableHead>
-        <TableBody>{owner.status ? ownerRows : rows}</TableBody>
+        <TableBody>{rows}</TableBody>
       </TableContainer>
     </div>
   );
