@@ -12,6 +12,7 @@
     "lodash": "^4.17.21",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-images-upload": "^1.2.8",
     "react-leaflet": "^3.1.0",
     "react-multi-date-picker": "^2.9.8",
     "react-router-dom": "^5.2.0",
