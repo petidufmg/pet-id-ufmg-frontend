@@ -13,6 +13,7 @@ function addPetFormSwitcher(pet, state, setState, index) {
   if (_.includes(attrLabel, "Data")) {
     return (
       <CustomDatePicker
+        state={state}
         setState={setState}
         index={index}
         isMultiple={isMultipleAttr}
@@ -37,14 +38,15 @@ function addPetFormSwitcher(pet, state, setState, index) {
       />
     );
   } else if (attrLabel === "Sexo") {
-    return <CustomRadio setState={setState} />;
+    return <CustomRadio state={state} setState={setState} />;
   } else if (attrLabel === "Porte") {
-    return <CustomSelector setState={setState} />;
+    return <CustomSelector state={state} setState={setState} />;
   } else if (attrLabel === "Local de captura") {
     return <CustomLocaleButton state={state} />;
   } else {
     return (
       <CustomTextField
+        state={state}
         setState={setState}
         index={index}
         attrLabel={attrLabel}

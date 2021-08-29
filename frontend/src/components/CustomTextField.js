@@ -1,14 +1,7 @@
 import { TextField } from "@material-ui/core";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
 
 function CustomTextField(props) {
-  const location = useLocation();
-  const state = location.state || { textField: {} };
-  const [value, setValue] = useState(state.textField[props.index] || "");
-
   function handleChange(e) {
-    setValue(e.target.value);
     props.setState((prev) => ({
       ...prev,
       textField: {
@@ -19,7 +12,8 @@ function CustomTextField(props) {
   }
   return (
     <TextField
-      value={value}
+      key={props.state.textField[props.index]}
+      value={props.state.textField[props.index]}
       onChange={handleChange}
       variant="outlined"
       type={
