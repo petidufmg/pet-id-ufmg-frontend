@@ -6,6 +6,10 @@ import searchStyles from "../styles/hooks/searchStyles.js";
 function CustomSearchForm(props) {
   const classes = searchStyles();
 
+  function handleChange(e) {
+    props.setInput(e.target.value);
+  }
+
   return (
     <div className={classes.paperDiv}>
       <Paper
@@ -18,6 +22,8 @@ function CustomSearchForm(props) {
           placeholder="Procurar animal..."
           variant="outlined"
           color="secondary"
+          onChange={handleChange}
+          value={props.input}
         ></InputBase>
         <IconButton type="submit">
           <SearchIcon />

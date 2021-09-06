@@ -7,12 +7,22 @@ function CustomLocaleButton(props) {
 
   function handleLocaleClick() {
     history.replace({ pathname: "/pet-add", state: props.state });
-    history.push({ pathname: "/pet-locale" });
+    history.push({ pathname: "/pet-locale" , state: history.location.state , from: "/pet-add" });
+  }
+
+  function handleVariant() {
+    switch (props.state.coordinates) {
+      case undefined:
+      case [0,0]:
+        return "outlined";
+      default:
+        return "contained";
+    }
   }
 
   return (
     <Button
-      variant="outlined"
+      variant={handleVariant()}
       color="primary"
       endIcon={<EditIcon />}
       onClick={handleLocaleClick}

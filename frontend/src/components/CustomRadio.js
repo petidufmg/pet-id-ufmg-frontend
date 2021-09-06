@@ -16,7 +16,7 @@ function CustomRadio(props) {
   }
 
   return (
-    <FormControl component="fieldset">
+    <FormControl required component="fieldset">
       <FormLabel component="legend">Sexo</FormLabel>
       <RadioGroup
         aria-label="sexo"
@@ -26,8 +26,8 @@ function CustomRadio(props) {
         onChange={handleChange}
         row
       >
-        <FormControlLabel value="male" control={<Radio />} label="Macho" />
-        <FormControlLabel value="female" control={<Radio />} label="Fêmea" />
+        <FormControlLabel value="Macho" control={<Radio />} label="Macho" />
+        <FormControlLabel value="Fêmea" control={<Radio />} label="Fêmea" />
       </RadioGroup>
     </FormControl>
   );

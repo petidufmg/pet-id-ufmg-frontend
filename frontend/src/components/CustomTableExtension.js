@@ -22,16 +22,16 @@ function CustomTableExtension(props) {
   } = props.buttonState;
   let array = [];
   if (vaccine.status) {
-    array = dogs.vaccinationDates;
+    array = props.petData["vaccinationDates"];
   } else if (vermifuge.status) {
-    array = dogs.dewormingDates;
+    array = props.petData["dewormingDates"];
   } else {
-    array = Object.keys(dogs.ownerData);
+    array = Object.keys(OwnerEnum);
   }
 
   const head = (
     <StyledTableRow>
-      {["Nome", "Data"].map((item) => (
+      {["Data"].map((item) => (
         <TableCell>{item}</TableCell>
       ))}
     </StyledTableRow>
@@ -42,10 +42,10 @@ function CustomTableExtension(props) {
         OwnerEnum[item][0] !== "Telefones de Contato" ? (
           <StyledTableRow>
             <TableCell>{OwnerEnum[item][0]}</TableCell>
-            <TableCell>{dogs.ownerData[item]}</TableCell>
+            <TableCell>{props.petData.owner[item]}</TableCell>
           </StyledTableRow>
         ) : (
-          dogs.ownerData.telephones.map((tel) => (
+          props.petData.owner["telephones"].map((tel) => (
             <StyledTableRow>
               <TableCell>Tel:</TableCell>
               <TableCell>{tel}</TableCell>
@@ -53,12 +53,16 @@ function CustomTableExtension(props) {
           ))
         )
       )
-    : array.map(([name, date]) => (
-        <StyledTableRow>
-          <TableCell>{name}</TableCell>
-          <TableCell>{date}</TableCell>
-        </StyledTableRow>
-      ));
+    : array.map((item) => {
+        let date = new Date(item);
+        return (
+          <StyledTableRow>
+            <TableCell>{`${date.getDate()}/${
+              date.getMonth() + 1
+            }/${date.getFullYear()}`}</TableCell>
+          </StyledTableRow>
+        );
+      });
 
   return (
     <div>

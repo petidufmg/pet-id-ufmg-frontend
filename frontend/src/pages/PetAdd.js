@@ -7,27 +7,29 @@ import ImageUploader from "react-images-upload";
 import { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import instance from "../helpers/axiosConfig";
+import CustomSnackBar from "../components/CustomSnackBar";
 
-function PetAdd(props) {
+function PetAdd() {
   const petAddClasses = PetAddStyles();
   const location = useLocation();
   const history = useHistory();
   const defaultImageLabel =
     "Tamanho máximo do arquivo: 5mb, formatos: jpg, gif, png";
   const [imageLabel, setImageLabel] = useState(defaultImageLabel);
-  const [form, setForm] = useState(
-    location.state || {
-      image: [],
-      radio: "male",
-      dates: {},
-      date: {},
-      height: "",
-      textField: {},
-    }
-  );
+  const [form, setForm] = useState(location.state || {
+    image: [],
+    radio: "male",
+    dates: {},
+    date: {},
+    height: "",
+    textField: {},
+  });
+  const [snackOpen, setSnackOpen] = useState({ state: false, type: "error" });
 
   useEffect(() => {
-    getPetInfo();
+    if (history.location.from === "/pet-info") {
+      getPetInfo();
+    }
   }, []);
 
   function getValueForPetPost(type, index) {
@@ -66,6 +68,16 @@ function PetAdd(props) {
         },
       };
     });
+    body = {
+      ...body,
+      image: {
+        data: form.image.data,
+        contentType: form.image.contentType
+      },
+      captureLocalization: {
+        coordinates: form.coordinates,
+      },
+    };
     return body;
   }
 
@@ -80,45 +92,47 @@ function PetAdd(props) {
     };
 
     Object.keys(data).forEach((key) => {
-        if (PetEnum.hasOwnProperty(key)) {
-          switch (PetEnum[key][2] || "") {
-            case "numeric":
-            case "text":
-              formData.textField[PetEnum[key][3]] = data[key];
-              break;
-            case "dropdown":
-              formData.height = data[key];
-              break;
-            case "boolean":
-              formData.radio = data[key];
-              break;
-            case "date":
-              formData.date[PetEnum[key][3]] = data[key];
-              break;
-            case "dates":
-              formData.dates[PetEnum[key][3]] = data[key];
-              break;
-            default:
-              break;
+      if (PetEnum.hasOwnProperty(key)) {
+        switch (PetEnum[key][2] || "") {
+          case "numeric":
+          case "text":
+            formData.textField[PetEnum[key][3]] = data[key];
+            break;
+          case "dropdown":
+            formData.height = data[key];
+            break;
+          case "boolean":
+            formData.radio = data[key];
+            break;
+          case "date":
+            formData.date[PetEnum[key][3]] = data[key];
+            break;
+          case "dates":
+            formData.dates[PetEnum[key][3]] = data[key];
+            break;
+          default:
+            break;
+        }
+      }
+      if (key === "owner") {
+        Object.keys(data[key]).forEach((ownerKey) => {
+          if (OwnerEnum.hasOwnProperty(ownerKey)) {
+            formData.textField[OwnerEnum[ownerKey][3]] = data[key][ownerKey];
           }
-        }
-        if (key === "owner") {
-          Object.keys(data[key]).forEach((ownerKey) => {
-            if (OwnerEnum.hasOwnProperty(ownerKey)) {
-              formData.textField[OwnerEnum[ownerKey][3]] = data[key][ownerKey];
-            }
-          });
-        }
+        });
+      }
+      formData.image = new File([data["image"]], "default.png", { type: "image/png"});
+      console.log(formData.image);
     });
     setForm(formData);
   }
 
   function getPetInfo() {
     instance
-      .get("/pets/612a8e915927e12844e1160d")
+      .get(`/pets/${history.location.state.microchipNumber}`)
       .then((response) => {
         let data = {};
-        Object.assign(data, response.data);
+        Object.assign(data, response.data[0]);
         handleForm(data);
       })
       .catch((err) => {
@@ -134,9 +148,11 @@ function PetAdd(props) {
         },
       })
       .then((response) => {
+        setSnackOpen({ state: true, type: "success" });
         console.log(response);
       })
       .catch((err) => {
+        setSnackOpen({ state: true, type: "error" });
         console.log(err);
       });
     if (location.from === "/pet-info") {
@@ -151,15 +167,28 @@ function PetAdd(props) {
   }
 
   function handleOnDrop(picture) {
+    console.log(picture);
     setImageLabel(picture[0] ? picture[0].name : defaultImageLabel);
-    setForm((prev) => ({
-      ...prev,
-      image: picture,
-    }));
+    picture[0].arrayBuffer().then((buffer) => {
+      console.log(buffer);
+      setForm((prev) => ({
+        ...prev,
+        image: {
+          data: Buffer.from(new Uint8Array(buffer)),
+          contentType: picture[0].type
+        },
+      }));
+    });
+    console.log(form)
   }
 
   return (
     <div className={petAddClasses.root}>
+      <CustomSnackBar
+        state={snackOpen.state}
+        type={snackOpen.type}
+        setState={setSnackOpen}
+      />
       <form>
         <h2 align="center">Informações do animal</h2>
         <Grid container spacing="5">

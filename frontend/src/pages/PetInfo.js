@@ -3,13 +3,16 @@ import dog from "../images/dog.jpg";
 import { petInfoStyles } from "../styles/hooks/petInfoStyles.js";
 import CustomTable from "../components/CustomTable.js";
 import CustomTableExtension from "../components/CustomTableExtension";
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Box, Button } from "@material-ui/core";
 import petInfoReducer from "../reducers/petInfoReducer.js";
 import { useHistory } from "react-router-dom";
+import CustomSnackBar from "../components/CustomSnackBar";
+import instance from "../helpers/axiosConfig";
 
 function PetInfo() {
   const history = useHistory();
+  console.log(history);
   const [buttonState, dispatch] = useReducer(petInfoReducer, {
     vaccineButton: {
       status: false,
@@ -24,6 +27,14 @@ function PetInfo() {
       name: "Ver mais",
     },
   });
+  const [snackOpen, setSnackOpen] = useState({ state: false, type: "error" });
+  const [image, setImage] = useState(undefined);
+
+  useEffect(() => {
+    setSnackOpen({ state: true, type: "info" });
+    const base64String = btoa(String.fromCharCode(...new Uint8Array(history.location.state.image.data.data)));
+    setImage(`data:image/jpeg;base64,${base64String}`);
+  }, []);
 
   function handleButtonClick(e) {
     switch (e.currentTarget.value) {
@@ -42,21 +53,52 @@ function PetInfo() {
   }
 
   function handleEditClick() {
-    history.push({ pathname: "/pet-add", from: "/pet-info" });
+    history.push({
+      pathname: "/pet-add",
+      state: {
+        microchipNumber: history.location.state.microchipNumber,
+        image: [],
+        radio: "male",
+        dates: {},
+        date: {},
+        height: "",
+        textField: {},
+      },
+      from: "/pet-info",
+    });
+  }
+
+  function handleDeleteClick() {
+    instance
+      .delete(`/pets/${history.location.state.microchipNumber}`)
+      .then((response) => {
+        console.log(response);
+        history.goBack();
+      })
+      .catch((err) => {
+        setSnackOpen({ state: true, type: "error"})
+        console.log(err);
+      });
   }
 
   const classes = petInfoStyles();
 
   return (
     <div>
+      <CustomSnackBar
+        state={snackOpen.state}
+        type={snackOpen.type}
+        setState={setSnackOpen}
+      />
       <Grid justify="center" container direction="row">
         <Grid item>
-          <img className={classes.img} src={dog} alt="dog" />
+          <img className={classes.img} src={image} alt="dog" />
         </Grid>
 
         <Grid justify="center" item xs container>
           <Grid item>
             <CustomTable
+              petData={history.location.state}
               buttonState={buttonState}
               onClick={handleButtonClick}
             />
@@ -72,7 +114,10 @@ function PetInfo() {
                 : "none"
             }
           >
-            <CustomTableExtension buttonState={buttonState} />
+            <CustomTableExtension
+              petData={history.location.state}
+              buttonState={buttonState}
+            />
           </Grid>
         </Grid>
       </Grid>
@@ -85,7 +130,7 @@ function PetInfo() {
         <Grid className={classes.deleteButtonContainer} item xs={12} md={6}>
           <Button
             className={classes.deleteButton}
-            onClick={handleEditClick}
+            onClick={handleDeleteClick}
             variant="contained"
           >
             Deletar

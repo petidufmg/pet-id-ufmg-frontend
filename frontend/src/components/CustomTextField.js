@@ -12,7 +12,7 @@ function CustomTextField(props) {
   }
   return (
     <TextField
-      key={props.state.textField[props.index]}
+      required
       value={props.state.textField[props.index]}
       onChange={handleChange}
       variant="outlined"

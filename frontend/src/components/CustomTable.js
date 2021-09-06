@@ -7,19 +7,34 @@ import {
   TableContainer,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import PetEnum from "../attributes/pet/Pet.js";
 import dogs from "../examples/dogs.js";
 import {
   petInfoStyles,
   StyledTableRow,
 } from "../styles/hooks/petInfoStyles.js";
+import _ from "lodash";
+import { useHistory } from "react-router-dom";
 
 function CustomTable(props) {
-  function switchComponents(item, index) {
+  let history = useHistory();
+
+  function goToPetLocale() {
+    history.push({
+      pathname: "/pet-locale",
+      state: { coordinates: props.petData["coordinates"] },
+      from: "/pet-info",
+    });
+  }
+
+  function switchComponents(key, item, index) {
+    console.log(key);
     switch (item) {
       case "Data das vacinações":
       case "Data das vermifugações":
+        if (_.isEmpty(props.petData[key])) {
+          return <Typography color="secondary">{"Sem dados"}</Typography>;
+        }
         return (
           <Button
             value={item}
@@ -34,49 +49,69 @@ function CustomTable(props) {
           </Button>
         );
       case "Local de captura":
+        if (_.isEqual(props.petData[key].coordinates, [0, 0])) {
+          return <Typography color="secondary">{"Sem dados"}</Typography>;
+        }
         return (
           <Button
             color="primary"
             disableElevation
             variant="contained"
-            to="/pet-locale"
-            component={Link}
+            onClick={goToPetLocale}
           >
             Ver no mapa
           </Button>
         );
       default:
-        return <Typography color="primary">{dogData[index]}</Typography>;
+        if (_.isUndefined(props.petData[key])) {
+          return <Typography color="secondary">{"Sem dados"}</Typography>;
+        }
+        if (_.includes(item, "Data")) {
+          let date = new Date(props.petData[key]);
+          return (
+            <Typography color="primary">
+              {`${date.getDate()}/${
+                date.getMonth() + 1
+              }/${date.getFullYear()}` || "Sem dados"}
+            </Typography>
+          );
+        }
+        return <Typography color="primary">{props.petData[key]}</Typography>;
     }
   }
 
   const classes = petInfoStyles();
   const dogData = Object.values(dogs);
-  const rows = Object.values(PetEnum).map((item, index) => { 
-    const [attrLabel] = item;
-    return(
-    <StyledTableRow>
-      <TableCell>
-        <Typography>{attrLabel}:</Typography>
-      </TableCell>
-      <TableCell>{switchComponents(attrLabel, index)}</TableCell>
-    </StyledTableRow>
-  )});
+  const rows = Object.keys(PetEnum).map((key, index) => {
+    const [attrLabel] = PetEnum[key];
+    return (
+      <StyledTableRow>
+        <TableCell>
+          <Typography>{attrLabel}:</Typography>
+        </TableCell>
+        <TableCell>{switchComponents(key, attrLabel, index)}</TableCell>
+      </StyledTableRow>
+    );
+  });
   const onwerRows = (
     <StyledTableRow>
       <TableCell>
         <Typography>Tutor</Typography>
       </TableCell>
       <TableCell>
-        <Button
-          value="Tutor"
-          onClick={props.onClick}
-          variant="contained"
-          disableElevation
-          color="primary"
-        >
-          {props.buttonState.ownerButton.name}
-        </Button>
+        {_.isUndefined(props.petData["owner"]) ? (
+          <Typography color="secondary">{"Sem dados"}</Typography>
+        ) : (
+          <Button
+            value="Tutor"
+            onClick={props.onClick}
+            variant="contained"
+            disableElevation
+            color="primary"
+          >
+            {props.buttonState.ownerButton.name}
+          </Button>
+        )}
       </TableCell>
     </StyledTableRow>
   );

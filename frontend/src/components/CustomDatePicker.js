@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import DatePicker from "react-multi-date-picker";
 import EditIcon from "@material-ui/icons/Edit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function CustomDatePicker(props) {
   const [variant, setVariant] = useState(
@@ -9,6 +9,14 @@ function CustomDatePicker(props) {
       ? "contained"
       : "outlined"
   );
+
+  useEffect(() => {
+    if (props.state.date[props.index] || props.state.dates[props.index]) {
+      setVariant("contained");
+    } else {
+      setVariant("outlined");
+    }
+  }, [props.state.date, props.state.dates]);
 
   function handleDateChange(value) {
     value !== null ? setVariant("contained") : setVariant("outlined");
@@ -46,7 +54,6 @@ function CustomDatePicker(props) {
 
   return (
     <DatePicker
-      key={props.isMultiple ? props.state.dates[props.index] : props.state.date[props.index]}
       value={props.isMultiple ? props.state.dates[props.index] : props.state.date[props.index]}
       onChange={props.isMultiple ? handleDatesChange : handleDateChange}
       format="DD-MM-YYYY"

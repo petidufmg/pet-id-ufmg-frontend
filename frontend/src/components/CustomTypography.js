@@ -7,12 +7,9 @@ function CustomTypography() {
   return (
     <div className={classes.toolbar}>
       <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-        pharetra dolor et sem euismod pretium. Pellentesque sit amet mollis
-        nibh. Morbi nec varius risus. Proin sit amet odio elit. In urna lorem,
-        condimentum nec fringilla id, maximus vel ligula. Aliquam odio justo,
-        bibendum eu nisi eu, hendrerit interdum augue. In sit amet velit velit.
-        Nam nisi urna, tempus non facilisis a, mollis eget felis.
+        Bem-vindo ao Pet ID! Aqui você tem um sistema completo para pesquisa e registro de animais.
+        Para começar, você pode procurar um animal com base em seu número de microchip ou adicionar
+        um totalmente novo.
       </Typography>
     </div>
   );

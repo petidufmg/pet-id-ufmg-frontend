@@ -14,6 +14,7 @@ function CustomSelector(props) {
 
   return (
     <FormControl
+      required
       className={customSelectorClasses.formControl}
       variant="outlined"
     >

@@ -63,7 +63,7 @@ function CustomDrawer(props) {
       </List>
       <Divider />
       <List>
-        {["Configurações", "Sair"].map((text, index) => (
+        {["Sair"].map((text, index) => (
           <ListItem
             to={text === "Sair" ? "/" : "/settings"}
             component={Link}
