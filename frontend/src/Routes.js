@@ -1,33 +1,37 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./pages/Login.js";
 import Home from "./pages/Home.js";
 import SignUp from "./pages/SignUp.js";
+import { useCookies } from "react-cookie";
+
+const ProtectedRoute = ({...props}) => {
+  const [cookies, setCookie] = useCookies([]);
+  return cookies["x-access-token"] ? <Route {...props} /> : <Redirect to="/" />;
+};
 
 function Router() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/home">
+        <ProtectedRoute path="/home" component={Home} />
+        <ProtectedRoute path="/settings">
           <Home />
-        </Route>
-        <Route path="/settings">
-          <Home />
-        </Route>
-        <Route path="/sign-up">
+        </ProtectedRoute>
+        <ProtectedRoute path="/sign-up">
           <SignUp />
-        </Route>
-        <Route path="/search">
+        </ProtectedRoute>
+        <ProtectedRoute path="/search">
           <Home />
-        </Route>
-        <Route path="/pet-info">
+        </ProtectedRoute>
+        <ProtectedRoute path="/pet-info">
           <Home />
-        </Route>
-        <Route path="/pet-locale">
+        </ProtectedRoute>
+        <ProtectedRoute path="/pet-locale">
           <Home />
-        </Route>
-        <Route path="/pet-add">
+        </ProtectedRoute>
+        <ProtectedRoute path="/pet-add">
           <Home />
-        </Route>
+        </ProtectedRoute>
         <Route path="/">
           <Login />
         </Route>

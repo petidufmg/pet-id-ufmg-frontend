@@ -9,6 +9,7 @@ import petInfoReducer from "../reducers/petInfoReducer.js";
 import { useHistory } from "react-router-dom";
 import CustomSnackBar from "../components/CustomSnackBar";
 import instance from "../helpers/axiosConfig";
+import { useCookies } from "react-cookie";
 
 function PetInfo() {
   const history = useHistory();
@@ -29,10 +30,15 @@ function PetInfo() {
   });
   const [snackOpen, setSnackOpen] = useState({ state: false, type: "error" });
   const [image, setImage] = useState(undefined);
+  const [cookies] = useCookies([]);
 
   useEffect(() => {
     setSnackOpen({ state: true, type: "info" });
-    const base64String = btoa(String.fromCharCode(...new Uint8Array(history.location.state.image.data.data)));
+    const base64String = btoa(
+      String.fromCharCode(
+        ...new Uint8Array(history.location.state.image.data.data)
+      )
+    );
     setImage(`data:image/jpeg;base64,${base64String}`);
   }, []);
 
@@ -76,7 +82,7 @@ function PetInfo() {
         history.goBack();
       })
       .catch((err) => {
-        setSnackOpen({ state: true, type: "error"})
+        setSnackOpen({ state: true, type: "error" });
         console.log(err);
       });
   }
@@ -121,22 +127,30 @@ function PetInfo() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid className={classes.actionButtonsContainer} m={5} container>
-        <Grid className={classes.editButtonContainer} item xs={12} md={6}>
-          <Button onClick={handleEditClick} color="primary" variant="contained">
-            Editar
-          </Button>
+      {cookies["user-type"] !== "0" ? (
+        <Grid className={classes.actionButtonsContainer} m={5} container>
+          <Grid className={classes.editButtonContainer} item xs={12} md={6}>
+            <Button
+              onClick={handleEditClick}
+              color="primary"
+              variant="contained"
+            >
+              Editar
+            </Button>
+          </Grid>
+          <Grid className={classes.deleteButtonContainer} item xs={12} md={6}>
+            <Button
+              className={classes.deleteButton}
+              onClick={handleDeleteClick}
+              variant="contained"
+            >
+              Deletar
+            </Button>
+          </Grid>
         </Grid>
-        <Grid className={classes.deleteButtonContainer} item xs={12} md={6}>
-          <Button
-            className={classes.deleteButton}
-            onClick={handleDeleteClick}
-            variant="contained"
-          >
-            Deletar
-          </Button>
-        </Grid>
-      </Grid>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

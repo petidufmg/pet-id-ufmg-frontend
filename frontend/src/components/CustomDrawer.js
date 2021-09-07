@@ -12,9 +12,10 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Link } from "react-router-dom";
 import { useTheme } from "@material-ui/core/styles";
+import { useCookies } from "react-cookie";
 
 function getPathname(text) {
-  switch(text) {
+  switch (text) {
     case "Home":
       return "/home";
     case "Procurar":
@@ -22,41 +23,39 @@ function getPathname(text) {
     case "Adicionar Animal":
       return "/pet-add";
     default:
-      return "/"
+      return "/";
   }
 }
 
 function getPathnameIcon(text) {
   switch (text) {
     case "Home":
-      return <HomeIcon/>;
+      return <HomeIcon />;
     case "Procurar":
-      return <SearchIcon/>;
+      return <SearchIcon />;
     case "Adicionar Animal":
-      return <AddCircleOutlineIcon/>;
+      return <AddCircleOutlineIcon />;
     default:
-      return <HomeIcon/>;
+      return <HomeIcon />;
   }
 }
 
 function CustomDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const [cookies] = useCookies([]);
+  const drawerList =
+    cookies["user-type"] !== "0"
+      ? ["Home", "Procurar", "Adicionar Animal"]
+      : ["Home", "Procurar"];
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {["Home", "Procurar", "Adicionar Animal"].map((text, index) => (
-          <ListItem
-            to={getPathname(text)}
-            component={Link}
-            button
-            key={index}
-          >
-            <ListItemIcon>
-              {getPathnameIcon(text)}
-            </ListItemIcon>
+        {drawerList.map((text, index) => (
+          <ListItem to={getPathname(text)} component={Link} button key={index}>
+            <ListItemIcon>{getPathnameIcon(text)}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}

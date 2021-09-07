@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import instance from "../helpers/axiosConfig";
 import CustomSnackBar from "../components/CustomSnackBar";
+import { useCookies } from "react-cookie";
 
 function PetAdd() {
   const petAddClasses = PetAddStyles();
@@ -25,12 +26,24 @@ function PetAdd() {
     textField: {},
   });
   const [snackOpen, setSnackOpen] = useState({ state: false, type: "error" });
+  const [cookies, setCookie] = useCookies(["x-access-token", "user-id"]);
 
   useEffect(() => {
     if (history.location.from === "/pet-info") {
       getPetInfo();
     }
   }, []);
+
+  function setEndpoint() {
+    switch (cookies["user-type"]) {
+      case "2":
+        return `/pets/${history.location.state.microchipNumber}/owner`;
+      case "3":
+        return `/pets/${history.location.state.microchipNumber}/owner-full`;
+      default:
+        return `/pets/${history.location.state.microchipNumber}`;
+    }
+  }
 
   function getValueForPetPost(type, index) {
     switch (type) {
@@ -129,7 +142,7 @@ function PetAdd() {
 
   function getPetInfo() {
     instance
-      .get(`/pets/${history.location.state.microchipNumber}`)
+      .get(setEndpoint())
       .then((response) => {
         let data = {};
         Object.assign(data, response.data[0]);
@@ -144,7 +157,7 @@ function PetAdd() {
     instance
       .post("/pets", convertToPetPost(), {
         params: {
-          id: process.env.REACT_APP_USER_ID,
+          id: cookies["user-id"],
         },
       })
       .then((response) => {

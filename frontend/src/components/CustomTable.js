@@ -15,9 +15,11 @@ import {
 } from "../styles/hooks/petInfoStyles.js";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function CustomTable(props) {
   let history = useHistory();
+  const [cookies] = useCookies([]);
 
   function goToPetLocale() {
     history.push({
@@ -122,7 +124,7 @@ function CustomTable(props) {
         <Table>
           <TableBody>
             {rows}
-            {onwerRows}
+            {cookies["user-type"] > 1 ? onwerRows : ""}
           </TableBody>
         </Table>
       </TableContainer>
