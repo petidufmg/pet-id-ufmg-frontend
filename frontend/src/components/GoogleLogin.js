@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 
 function GoogleLogin() {
   const history = useHistory();
-  const [cookies, setCookie] = useCookies([]);
+  const [, setCookie] = useCookies([]);
 
   window.handleCredentialResponse = handleCredentialResponse;
   function handleCredentialResponse(response) {
@@ -44,7 +44,7 @@ function GoogleLogin() {
         data-auto_prompt="false"
       ></div>
       <div
-        class="g_id_signin"
+        className="g_id_signin"
         data-type="standard"
         data-size="large"
         data-theme="outline"
