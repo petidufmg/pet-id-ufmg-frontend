@@ -26,16 +26,13 @@ function PetLocale() {
   }
 
   function handleCleanClick() {
-    console.log(history);
-    setCoordinates([0,0], () => {
-      if(history.location.from === "/pet-add") {
-        history.replace({
-          pathname: "/pet-add",
-          state: { ...history.location.state, coordinates: selectedCoordinates },
-        });
-      }
-      handleBackClick();
-    });
+    if(history.location.from === "/pet-add") {
+      history.replace({
+        pathname: "/pet-add",
+        state: { ...history.location.state, coordinates: [0,0] },
+      });
+    }
+    handleBackClick();
   }
 
   return (

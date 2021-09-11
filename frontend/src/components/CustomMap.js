@@ -1,5 +1,5 @@
 import "../styles/css/customMap.css";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
 import { useEffect } from "react";
 import "leaflet-geosearch/assets/css/leaflet.css";
@@ -21,7 +21,7 @@ const SearchField = (props) => {
   function handleResult(result) {
     marker.remove();
     if (result.type === "geosearch/marker/dragend") {
-      props.setState([result.location.lat, result.location.lng]);
+      props.setState([result.location.lng, result.location.lat]);
     } else {
       props.setState([result.location.x, result.location.y]);
     }
@@ -45,17 +45,18 @@ const SearchField = (props) => {
 };
 
 function CustomMap(props) {
+  const coordinates = [props.coordinates[1], props.coordinates[0]];
   return (
     <div>
       <MapContainer
         className="map-container"
-        center={props.coordinates.reverse()}
+        center={coordinates}
         zoom={13}
         scrollWheelZoom={false}
       >
         {
           <SearchField
-            coordinates={props.coordinates.reverse()}
+            coordinates={coordinates}
             state={props.state}
             setState={props.setState}
           />

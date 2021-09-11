@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import CustomSnackBar from "../components/CustomSnackBar";
 import instance from "../helpers/axiosConfig";
 import { useCookies } from "react-cookie";
+import _ from "lodash";
 
 function PetInfo() {
   const history = useHistory();
@@ -34,9 +35,9 @@ function PetInfo() {
 
   useEffect(() => {
     setSnackOpen({ state: true, type: "info" });
-    const base64String = btoa(
+    let base64String = btoa(
       String.fromCharCode(
-        ...new Uint8Array(history.location.state.image.data.data)
+        ...(_.slice(new Uint8Array(history.location.state.image.data.data), 0, 65536))
       )
     );
     setImage(`data:image/jpeg;base64,${base64String}`);

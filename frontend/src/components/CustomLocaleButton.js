@@ -11,9 +11,10 @@ function CustomLocaleButton(props) {
   }
 
   function handleVariant() {
-    switch (props.state.coordinates) {
+    const coordinates = props.state.coordinates || [0,0];
+    switch (coordinates.join(" ")) {
       case undefined:
-      case [0,0]:
+      case "0 0":
         return "outlined";
       default:
         return "contained";
