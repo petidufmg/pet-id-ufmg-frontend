@@ -7,9 +7,10 @@ import "../styles/css/login.css";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import GoogleLogin from "../components/GoogleLogin";
+import loadjs from "loadjs";
 
 function Login() {
-
+  loadjs("https://accounts.google.com/gsi/client");
   return (
     <div className="home-div">
       <form className="MuiTextField-root">

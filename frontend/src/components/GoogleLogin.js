@@ -1,12 +1,10 @@
 import instance from "../helpers/axiosConfig";
 import { useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useEffect } from "react";
 
 function GoogleLogin() {
   const history = useHistory();
   const [cookies, setCookie] = useCookies([]);
-  const userId = cookies["user-id"];
 
   window.handleCredentialResponse = handleCredentialResponse;
   function handleCredentialResponse(response) {

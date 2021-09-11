@@ -40,9 +40,7 @@ function Router() {
         <ProtectedRoute path="/pet-add">
           <Home />
         </ProtectedRoute>
-        <Route path="/">
-          <Login />
-        </Route>
+        <Route path="/" component={Login}/>
       </Switch>
     </BrowserRouter>
   );
