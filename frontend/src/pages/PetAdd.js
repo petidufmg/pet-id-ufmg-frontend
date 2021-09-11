@@ -26,7 +26,7 @@ function PetAdd() {
     textField: {},
   });
   const [snackOpen, setSnackOpen] = useState({ state: false, type: "error" });
-  const [cookies, setCookie] = useCookies(["x-access-token", "user-id"]);
+  const [cookies] = useCookies(["x-access-token", "user-id"]);
 
   useEffect(() => {
     if (history.location.from === "/pet-info") {
@@ -180,10 +180,8 @@ function PetAdd() {
   }
 
   function handleOnDrop(picture) {
-    console.log(picture);
     setImageLabel(picture[0] ? picture[0].name : defaultImageLabel);
     picture[0].arrayBuffer().then((buffer) => {
-      console.log(buffer);
       setForm((prev) => ({
         ...prev,
         image: {
@@ -205,6 +203,11 @@ function PetAdd() {
       <form>
         <h2 align="center">Informações do animal</h2>
         <Grid container spacing="5">
+          {Object.values(PetEnum).map((pet, index) => (
+            <Grid item spacing="5" md={6} xs={12} align="center">
+              {addPetFormSwitcher(pet, form, setForm, index)}
+            </Grid>
+          ))}
           <Grid xs={12} item>
             <ImageUploader
               buttonText="Escolher foto do animal"
@@ -213,14 +216,6 @@ function PetAdd() {
               onChange={handleOnDrop}
               withPreview={true}
             />
-          </Grid>
-          {Object.values(PetEnum).map((pet, index) => (
-            <Grid item spacing="5" md={6} xs={12} align="center">
-              {addPetFormSwitcher(pet, form, setForm, index)}
-            </Grid>
-          ))}
-          <Grid xs={12} item>
-            <Divider />
           </Grid>
           <Grid item spacing="5" align="center" xs={12}>
             <h2>Informações do Tutor</h2>
