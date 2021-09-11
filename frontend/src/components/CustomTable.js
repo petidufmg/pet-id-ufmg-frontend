@@ -24,7 +24,7 @@ function CustomTable(props) {
   function goToPetLocale() {
     history.push({
       pathname: "/pet-locale",
-      state: { coordinates: props.petData["coordinates"] },
+      state: { coordinates: props.petData["captureLocalization"].coordinates },
       from: "/pet-info",
     });
   }
