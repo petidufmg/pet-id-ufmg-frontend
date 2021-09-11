@@ -18,7 +18,7 @@ function CustomSnackBar(props) {
       case "success":
         return "Animal adicionado com sucesso!";
       case "error":
-        return "Ocorreu um erro! Tente novamente.";
+        return "Ocorreu um erro! Tente entrar novamente.";
       case "info":
         return "Os detalhes do seu pet foram carregados com sucesso!"
       case "warning":

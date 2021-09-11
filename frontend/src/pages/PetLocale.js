@@ -1,8 +1,9 @@
 import { Button } from "@material-ui/core";
 import CustomMap from "../components/CustomMap";
 import petLocaleStyles from "../styles/hooks/petLocaleStyles.js";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 function PetLocale() {
   const history = useHistory();
@@ -10,9 +11,10 @@ function PetLocale() {
   const [selectedCoordinates, setCoordinates] = useState(
     history.location.state.coordinates || [0, 0]
   );
+  const [cookies] = useCookies([]);
 
   function handleSaveClick() {
-    if(history.location.from === "/pet-add") {
+    if (history.location.from === "/pet-add") {
       history.replace({
         pathname: "/pet-add",
         state: { ...history.location.state, coordinates: selectedCoordinates },
@@ -26,10 +28,10 @@ function PetLocale() {
   }
 
   function handleCleanClick() {
-    if(history.location.from === "/pet-add") {
+    if (history.location.from === "/pet-add") {
       history.replace({
         pathname: "/pet-add",
-        state: { ...history.location.state, coordinates: [0,0] },
+        state: { ...history.location.state, coordinates: [0, 0] },
       });
     }
     handleBackClick();
@@ -45,22 +47,26 @@ function PetLocale() {
       >
         Voltar
       </Button>
-      <Button
-        onClick={handleCleanClick}
-        className={classes.centerButton}
-        color="primary"
-        variant="contained"
-      >
-        Remover
-      </Button>
-      <Button
-        onClick={handleSaveClick}
-        className={classes.rightButton}
-        color="secondary"
-        variant="contained"
-      >
-        Salvar
-      </Button>
+      {cookies["user-type"] !== "0" ? (
+        <Button
+          onClick={handleCleanClick}
+          className={classes.centerButton}
+          color="primary"
+          variant="contained"
+        >
+          Remover
+        </Button>
+      ) : null}
+      {cookies["user-type"] !== "0" ? (
+        <Button
+          onClick={handleSaveClick}
+          className={classes.rightButton}
+          color="secondary"
+          variant="contained"
+        >
+          Salvar
+        </Button>
+      ) : null}
       <CustomMap
         coordinates={selectedCoordinates}
         state={selectedCoordinates}
