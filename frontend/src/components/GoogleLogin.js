@@ -20,15 +20,15 @@ function GoogleLogin() {
           res.data.type;
         setCookie("x-access-token", res.data.token, {
           pathname: "/",
-          maxAge: 1000,
+          maxAge: 300 * 12 - 10,
         });
         setCookie("user-id", res.data.id, {
           pathname: "/",
-          maxAge: 1000,
+          maxAge: 300 * 12 - 10,
         });
         setCookie("user-type", res.data.type, {
           pathname: "/",
-          maxAge: 1000,
+          maxAge: 300 * 12 - 10,
         });
         history.push("/home");
       })

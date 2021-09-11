@@ -3,10 +3,18 @@ import Login from "./pages/Login.js";
 import Home from "./pages/Home.js";
 import SignUp from "./pages/SignUp.js";
 import { useCookies } from "react-cookie";
+import instance from "./helpers/axiosConfig";
 
-const ProtectedRoute = ({...props}) => {
-  const [cookies, setCookie] = useCookies([]);
-  return cookies["x-access-token"] ? <Route {...props} /> : <Redirect to="/" />;
+const ProtectedRoute = ({ ...props }) => {
+  const [cookies] = useCookies([]);
+  const token = cookies["x-access-token"];
+  const userId = cookies["user-id"];
+  if (cookies["x-access-token"]) {
+    instance.defaults.headers.common["x-access-token"] = token;
+    instance.defaults.headers.common["user-id"] = userId;
+    return <Route {...props} />;
+  }
+  return <Redirect to="/" />;
 };
 
 function Router() {
