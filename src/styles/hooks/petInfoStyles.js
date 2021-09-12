@@ -3,7 +3,7 @@ import { TableRow } from "@material-ui/core";
 
 const petInfoStyles = makeStyles((theme) => ({
   img: {
-    width: "400px",
+    maxWidth: "400px",
     height: "400px",
     borderRadius: "8px",
     objectFit: "cover",

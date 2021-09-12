@@ -35,12 +35,18 @@ function PetInfo() {
 
   useEffect(() => {
     setSnackOpen({ state: true, type: "info" });
-    let base64String = btoa(
-      String.fromCharCode(
-        ...(_.slice(new Uint8Array(history.location.state.image.data.data), 0, 65536))
-      )
-    );
-    setImage(`data:image/jpeg;base64,${base64String}`);
+    if (history.location.state.image !== undefined) {
+      let base64String = btoa(
+        String.fromCharCode(
+          ..._.slice(
+            new Uint8Array(history.location.state.image.data.data),
+            0,
+            65536
+          )
+        )
+      );
+      setImage(`data:image/jpeg;base64,${base64String}`);
+    }
   }, []);
 
   function handleButtonClick(e) {
@@ -98,9 +104,11 @@ function PetInfo() {
         setState={setSnackOpen}
       />
       <Grid justify="center" container direction="row">
-        <Grid item>
-          <img className={classes.img} src={image} alt="dog" />
-        </Grid>
+        {history.location.state.image !== undefined ? (
+          <Grid item>
+            <img className={classes.img} src={image} alt="dog" />
+          </Grid>
+        ) : null}
 
         <Grid justify="center" item xs container>
           <Grid item>

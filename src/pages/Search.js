@@ -6,6 +6,7 @@ import instance from "../helpers/axiosConfig";
 import CustomSnackBar from "../components/CustomSnackBar";
 import _ from "lodash";
 import { useCookies } from "react-cookie";
+import { Grid } from "@material-ui/core";
 
 function Search() {
   const history = useHistory();
@@ -47,27 +48,33 @@ function Search() {
         if (response.data.length > 0) {
           setPetData(response.data[0]);
         } else {
-          setSnackOpen({ state: true, type: "warning"})
+          setSnackOpen({ state: true, type: "warning" });
         }
       })
       .catch((err) => {
-        setSnackOpen({ state: true, type: "error"})
+        setSnackOpen({ state: true, type: "error" });
         console.log(err);
       });
   }
 
   return (
     <div>
+      <Grid container>
+        <Grid item align="center">
+          <CustomTypography />
+        </Grid>
+        <Grid item align="center">
+          <CustomSearchForm
+            input={input}
+            setInput={setInput}
+            handleSubmit={handleSubmit}
+          />
+        </Grid>
+      </Grid>
       <CustomSnackBar
         state={snackOpen.state}
         type={snackOpen.type}
         setState={setSnackOpen}
-      />
-      <CustomTypography />
-      <CustomSearchForm
-        input={input}
-        setInput={setInput}
-        handleSubmit={handleSubmit}
       />
     </div>
   );

@@ -15,17 +15,19 @@ function PetAdd() {
   const location = useLocation();
   const history = useHistory();
   const defaultImageLabel =
-    "Tamanho máximo do arquivo: 5mb, formatos: jpg, gif, png";
+    "Tamanho máximo do arquivo: 5mb, formatos: jpg, gif, png *";
   const [imageLabel, setImageLabel] = useState(defaultImageLabel);
-  const [form, setForm] = useState(location.state || {
-    image: [],
-    radio: "male",
-    dates: {},
-    date: {},
-    height: "",
-    textField: {},
-    coordinates: [0, 0]
-  });
+  const [form, setForm] = useState(
+    location.state || {
+      image: [],
+      radio: "male",
+      dates: {},
+      date: {},
+      height: "",
+      textField: {},
+      coordinates: [0, 0],
+    }
+  );
   const [snackOpen, setSnackOpen] = useState({ state: false, type: "error" });
   const [cookies] = useCookies(["x-access-token", "user-id"]);
 
@@ -84,14 +86,19 @@ function PetAdd() {
     });
     body = {
       ...body,
-      image: {
-        data: form.image.data,
-        contentType: form.image.contentType
-      },
       captureLocalization: {
         coordinates: form.coordinates,
       },
     };
+    if (form.image !== undefined) {
+      body = {
+        ...body,
+        image: {
+          data: form.image.data,
+          contentType: form.image.contentType,
+        },
+      };
+    }
     return body;
   }
 
@@ -103,7 +110,7 @@ function PetAdd() {
       date: {},
       height: "",
       textField: {},
-      coordinates: [0, 0]
+      coordinates: [0, 0],
     };
 
     Object.keys(data).forEach((key) => {
@@ -136,7 +143,9 @@ function PetAdd() {
           }
         });
       }
-      formData.image = new File([data["image"]], "default.png", { type: "image/png"});
+      formData.image = new File([data["image"]], "default.png", {
+        type: "image/png",
+      });
       formData.coordinates = data["captureLocalization"].coordinates;
     });
     setForm(formData);
@@ -149,13 +158,36 @@ function PetAdd() {
         let data = {};
         Object.assign(data, response.data[0]);
         handleForm(data);
+        setSnackOpen({ state: true, type: "info" });
       })
       .catch((err) => {
         console.log(err);
+        setSnackOpen({ state: true, type: "error" });
       });
   }
 
   function handlePetInfoSave() {
+    if (history.location.from === "/pet-info") {
+      instance
+        .patch(
+          `/pets/${history.location.state.microchipNumber}`,
+          convertToPetPost(),
+          {
+            params: {
+              id: cookies["user-id"],
+            },
+          }
+        )
+        .then((response) => {
+          setSnackOpen({ state: true, type: "success" });
+          console.log(response);
+        })
+        .catch((err) => {
+          setSnackOpen({ state: true, type: "error" });
+          console.log(err);
+        });
+      return;
+    }
     instance
       .post("/pets", convertToPetPost(), {
         params: {
@@ -183,16 +215,17 @@ function PetAdd() {
 
   function handleOnDrop(picture) {
     setImageLabel(picture[0] ? picture[0].name : defaultImageLabel);
-    picture[0].arrayBuffer().then((buffer) => {
-      setForm((prev) => ({
-        ...prev,
-        image: {
-          data: Buffer.from(new Uint8Array(buffer)),
-          contentType: picture[0].type
-        },
-      }));
-    });
-    console.log(form)
+    if (picture[0] !== undefined) {
+      picture[0].arrayBuffer().then((buffer) => {
+        setForm((prev) => ({
+          ...prev,
+          image: {
+            data: Buffer.from(new Uint8Array(buffer)),
+            contentType: picture[0].type,
+          },
+        }));
+      });
+    }
   }
 
   return (
