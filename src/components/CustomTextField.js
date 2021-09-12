@@ -1,7 +1,15 @@
 import { TextField } from "@material-ui/core";
+import { useEffect, useState } from "react";
 
 function CustomTextField(props) {
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    setValue(props.state.textField[props.index]);
+  }, [props.state.textField[props.index]]);
+
   function handleChange(e) {
+    setValue(e.target.value);
     props.setState((prev) => ({
       ...prev,
       textField: {
@@ -12,8 +20,8 @@ function CustomTextField(props) {
   }
   return (
     <TextField
+      value={value}
       required
-      value={props.state.textField[props.index]}
       onChange={handleChange}
       variant="outlined"
       type={

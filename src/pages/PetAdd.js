@@ -24,6 +24,7 @@ function PetAdd() {
     date: {},
     height: "",
     textField: {},
+    coordinates: [0, 0]
   });
   const [snackOpen, setSnackOpen] = useState({ state: false, type: "error" });
   const [cookies] = useCookies(["x-access-token", "user-id"]);
@@ -102,6 +103,7 @@ function PetAdd() {
       date: {},
       height: "",
       textField: {},
+      coordinates: [0, 0]
     };
 
     Object.keys(data).forEach((key) => {
@@ -135,7 +137,7 @@ function PetAdd() {
         });
       }
       formData.image = new File([data["image"]], "default.png", { type: "image/png"});
-      console.log(formData.image);
+      formData.coordinates = data["captureLocalization"].coordinates;
     });
     setForm(formData);
   }
