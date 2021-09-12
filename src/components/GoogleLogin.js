@@ -8,6 +8,7 @@ function GoogleLogin() {
 
   window.handleCredentialResponse = handleCredentialResponse;
   function handleCredentialResponse(response) {
+    console.log("handledcredentialResponse");
     instance
       .post("/users/auth/google", { credential: response.credential })
       .then((res) => {
