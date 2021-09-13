@@ -8,11 +8,9 @@ function GoogleLogin() {
 
   window.handleCredentialResponse = handleCredentialResponse;
   function handleCredentialResponse(response) {
-    console.log("handledcredentialResponse");
     instance
       .post("/users/auth/google", { credential: response.credential })
       .then((res) => {
-        console.log(res);
         instance.defaults.headers.common["x-access-token"] =
           res.data.token;
           instance.defaults.headers.common["user-id"] =

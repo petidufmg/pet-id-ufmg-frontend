@@ -30,7 +30,6 @@ function CustomTable(props) {
   }
 
   function switchComponents(key, item, index) {
-    console.log(key);
     switch (item) {
       case "Data das vacinações":
       case "Data das vermifugações":

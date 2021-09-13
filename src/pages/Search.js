@@ -13,9 +13,7 @@ function Search() {
   const [input, setInput] = useState("");
   const [snackOpen, setSnackOpen] = useState({ state: false, type: "error" });
   const [petData, setPetData] = useState({});
-  const [cookies, setCookie] = useCookies(["x-access-token", "user-type"]);
-
-  console.log(cookies["x-access-token"]);
+  const [cookies] = useCookies(["x-access-token", "user-type"]);
 
   useEffect(() => {
     if (!_.isEmpty(petData)) {
@@ -44,7 +42,6 @@ function Search() {
       .get(setEndpoint())
       .then((response) => {
         console.log(response);
-        console.log(response.data);
         if (response.data.length > 0) {
           setPetData(response.data[0]);
         } else {

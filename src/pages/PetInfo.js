@@ -14,7 +14,6 @@ import _ from "lodash";
 
 function PetInfo() {
   const history = useHistory();
-  console.log(history);
   const [buttonState, dispatch] = useReducer(petInfoReducer, {
     vaccineButton: {
       status: false,
