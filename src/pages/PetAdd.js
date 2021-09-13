@@ -273,7 +273,7 @@ function PetAdd() {
               className={petAddClasses.clearButtonContainer}
               item
               xs={12}
-              md={4}
+              md={history.location.from === "/pet-info" ? 4 : 6}
             >
               <Button
                 className={petAddClasses.actionButton}
@@ -293,26 +293,28 @@ function PetAdd() {
                 Limpar
               </Button>
             </Grid>
-            <Grid
-              className={petAddClasses.cancelButtonContainer}
-              item
-              xs={12}
-              md={4}
-            >
-              <Button
-                onClick={handleGoBackClick}
-                className={petAddClasses.actionButton}
-                color="primary"
-                variant="contained"
+            {history.location.from === "/pet-info" ? (
+              <Grid
+                className={petAddClasses.cancelButtonContainer}
+                item
+                xs={12}
+                md={4}
               >
-                Cancelar
-              </Button>
-            </Grid>
+                <Button
+                  onClick={handleGoBackClick}
+                  className={petAddClasses.actionButton}
+                  color="primary"
+                  variant="contained"
+                >
+                  Cancelar
+                </Button>
+              </Grid>
+            ) : null}
             <Grid
               className={petAddClasses.saveButtonContainer}
               item
               xs={12}
-              md={4}
+              md={history.location.from === "/pet-info" ? 4 : 6}
             >
               <Button
                 onClick={handlePetInfoSave}
